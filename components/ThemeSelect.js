@@ -5,13 +5,8 @@ import { COLORS } from '../lib/constants'
 const WINDOW_THEMES_MAP = { none: None, sharp: Sharp, bw: BW }
 export const WINDOW_THEMES = Object.keys(WINDOW_THEMES_MAP)
 
-export default class extends React.Component {
-  constructor(props) {
-    super(props)
-    this.select = this.select.bind(this)
-  }
-
-  select(theme) {
+class ThemeSelect extends React.Component {
+  select = theme => {
     if (this.props.selected !== theme) {
       this.props.onChange(theme)
     }
@@ -22,6 +17,8 @@ export default class extends React.Component {
       const Img = WINDOW_THEMES_MAP[theme]
       return (
         <div
+          role="button"
+          tabIndex={0}
           className={`theme ${this.props.selected === theme ? 'selected' : ''}`}
           key={theme}
           onClick={this.select.bind(null, theme)}
@@ -52,7 +49,7 @@ export default class extends React.Component {
   render() {
     return (
       <div className="window-theme">
-        <span className="label">Window theme</span>
+        <span className="label">Theme</span>
         <div className="themes">{this.renderThemes()}</div>
         <style jsx>
           {`
@@ -76,3 +73,5 @@ export default class extends React.Component {
     )
   }
 }
+
+export default ThemeSelect
